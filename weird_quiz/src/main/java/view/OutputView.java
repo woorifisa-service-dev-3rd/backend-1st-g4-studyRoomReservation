@@ -52,7 +52,28 @@ public class OutputView {
 	}
 
 	public void writeGameStats(User user) {
-		// TODO Auto-generated method stub
+
+		StringBuilder write = new StringBuilder();
+		write.append(user.getUserName()).append("님의 게임 기록입니다.").append("\n");
+
+		 // 성공률과 정답률 계산
+		double successRate = 0;
+		double correctAnswerRate = 0;
+		
+		if (user.getGameAttemptCount() > 0) {
+      		successRate = (double) user.getGameSuccessCount() / user.getGameAttemptCount() * 100;
+        }
+
+		if (user.getQuizSolvedCount() > 0) {
+			correctAnswerRate = (double) user.getQuizCorrectCount() / user.getQuizSolvedCount() * 100;
+		}
+
+
+		write.append(String.format("성공률: %.2f%%", successRate)).append("\n");
+		write.append(String.format("정답률: %.2f%%", correctAnswerRate));
+
+
+		System.out.println(write.toString());
 
 	}
 
