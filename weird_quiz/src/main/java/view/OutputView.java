@@ -2,6 +2,8 @@ package view;
 
 import java.util.List;
 
+import constants.GameMenuOption;
+import constants.LoginMenuOption;
 import model.Quiz;
 import model.QuizOption;
 import constants.GameMenuOption;
@@ -11,18 +13,20 @@ import model.User;
 public class OutputView {
 
 	public void writeLoginMenu() {
-		System.out.println("1. 로그인 하기\n" + "2. 회원가입 하기\n" + "3. 종료");
+		for (LoginMenuOption option : LoginMenuOption.values()) {
+			System.out.println(option.getId() + ". " + option.getContent());
+		}
 	}
 
 	public void writeGameMenu() {
 		StringBuilder sb = new StringBuilder();
-		
-		for(GameMenuOption option : GameMenuOption.values()) {
+
+		for (GameMenuOption option : GameMenuOption.values()) {
 			sb.append(option.getId()).append(". ").append(option.getContent()).append("\n");
 		}
-		
-		sb.delete(sb.length()-1, sb.length());
-		
+
+		sb.delete(sb.length() - 1, sb.length());
+
 		System.out.println(sb);
 	}
 
