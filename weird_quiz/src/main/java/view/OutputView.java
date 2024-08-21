@@ -16,10 +16,12 @@ public class OutputView {
 
 	public void writeGameMenu() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(GameMenuOption.GAME_GUIDE.getId()).append(". ").append(GameMenuOption.GAME_GUIDE.getContent()).append("\n");
-		sb.append(GameMenuOption.GAME_PLAY.getId()).append(". ").append(GameMenuOption.GAME_PLAY.getContent()).append("\n");
-		sb.append(GameMenuOption.GAME_STATS.getId()).append(". ").append(GameMenuOption.GAME_STATS.getContent()).append("\n");
-		sb.append(GameMenuOption.LOGOUT.getId()).append(". ").append(GameMenuOption.LOGOUT.getContent()).append("\n");
+		
+		for(GameMenuOption option : GameMenuOption.values()) {
+			sb.append(option.getId()).append(". ").append(option.getContent()).append("\n");
+		}
+		
+		sb.delete(sb.length()-1, sb.length());
 		
 		System.out.println(sb);
 	}

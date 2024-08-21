@@ -158,9 +158,7 @@ public class WeirdQuizController {
 		int gameMenuOption = selectGameMenu();
 
 		// 게임 방법
-		System.out.println(gameMenuOption + " " + GameMenuOption.GAME_GUIDE.getId());
 		if (gameMenuOption == GameMenuOption.GAME_GUIDE.getId()) {
-			System.out.println("hello");
 			guideGame();
 		}
 
