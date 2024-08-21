@@ -14,14 +14,24 @@ import view.InputView;
 import view.OutputView;
 
 public class WeirdQuizController {
-	private static final UserService userService = new UserService();
-	private static final QuizService quizService = new QuizService();
-	private static final InputView inputView = new InputView();
-	private static final OutputView outputView = new OutputView();
+	private final UserService userService;
+	private final QuizService quizService;
+	private final InputView inputView;
+	private final OutputView outputView;
 	// DB 커넥션
-	private static Connection connection = DBUtil.getConnection("src/main/resources/jdbc.properties");
+	private final Connection connection;
+	
+	public WeirdQuizController() {
+		connection = DBUtil.getConnection("src/main/resources/jdbc.properties");
+		
+		userService = new UserService();
+		quizService = new QuizService(connection);
+		inputView = new InputView();
+		outputView = new OutputView();
+	}
 
 	public void run() {
+		
 		while (true) {
 			int loginMenuOption = selectLoginMenu();
 			User user = null;
@@ -93,23 +103,44 @@ public class WeirdQuizController {
 	}
 
 	boolean playGame() {
+		
+		// TODO user에 게임 참여 횟수 정보 저장
+		
+		// 10개 퀴즈 랜덤으로 가져오기
 		List<Quiz> quizzes = quizService.selectQuizzes();
-
-		for (Quiz quiz : quizzes) {
-			outputView.writeQuiz();
+		
+		Quiz quiz;
+		for(int i = 0; i < quizzes.size(); i++) {
+			quiz = quizzes.get(i);
+			
+			// 퀴즈 옵션 정보 가져오기
+			quizService.setQuizOptions(quiz);
+			
+			outputView.writeQuiz(i + 1, quiz);
 			int userAnswer = inputView.readUserAnswer();
+			
+			// 포기
+			if(userAnswer == 0) return true;
 
 			if (quizService.isCorrectAnswer(quiz, userAnswer)) {
 				// 정답일 경우
-				outputView.writeCorrectAnswerMessage();
+				outputView.writeCorrectAnswerMessage(i + 1, quiz);
+				
+				// TODO user에 정답 정보 저장
 			} else {
 				// 오답일 경우
-				outputView.writeWrongAnswerMessage();
+				outputView.writeWrongAnswerMessage(quiz, userAnswer, i + 1);
+				
+				// TODO user에 정답 정보 저장
+				
 				return true;
 			}
 		}
 
+		// 게임 성공
 		outputView.writeSuccessGameMessage();
+		// TODO user에 성공 정보 저장
+		
 		return false;
 	}
 
