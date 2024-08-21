@@ -6,7 +6,7 @@ import model.User;
 import java.sql.Connection;
 
 public class UserService {
-	private Connection connection;
+	private final Connection connection;
 	private final UserDAO userDAO;
 
 	public UserService(Connection connection) {
