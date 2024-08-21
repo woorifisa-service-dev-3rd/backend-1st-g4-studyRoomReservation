@@ -28,7 +28,7 @@ public class UserDAO {
                     long quizCorrectCount = resultSet.getLong("quiz_correct_count");
 
                     // DB에서 받아온 데이터를 Todo 모델 객체로 바인딩
-                    return new User(userId, userName, password, gameAttemptCount, gameSuccessCount, quizSolvedCount, quizCorrectCount);
+                    return new User(userId, password, userName, gameAttemptCount, gameSuccessCount, quizSolvedCount, quizCorrectCount);
                 }
             }
         } catch (SQLException e) {
