@@ -20,7 +20,7 @@ public class WeirdQuizController {
 	private final OutputView outputView;
 	// DB 커넥션
 	private final Connection connection;
-	
+
 	private User user;
 
 	public WeirdQuizController() {
@@ -33,7 +33,7 @@ public class WeirdQuizController {
 	}
 
 	public void run() {
-		
+
 		while (true) {
 			int loginMenuOption = selectLoginMenu();
 			user = null;
@@ -41,10 +41,14 @@ public class WeirdQuizController {
 			if (loginMenuOption == LoginMenuOption.LOGIN.getId()) {
 				// 로그인
 				while (user == null) {
-					user = login();
+					try {
+						user = login();
+					}catch(RuntimeException e) {
+						outputView.writeExceptionMessage(e.getMessage());
+					}
 				}
 
-				while(user != null) {
+				while (user != null) {
 					executeGame();
 				}
 
@@ -53,10 +57,14 @@ public class WeirdQuizController {
 			if (loginMenuOption == LoginMenuOption.SIGNUP.getId()) {
 				// 회원가입
 				while (user == null) {
-					user = signup();
+					try {
+						user = signup();
+					} catch (RuntimeException e) {
+						outputView.writeExceptionMessage(e.getMessage());
+					}
 				}
 
-				while(user != null) {
+				while (user != null) {
 					executeGame();
 				}
 			}
@@ -109,28 +117,28 @@ public class WeirdQuizController {
 	}
 
 	boolean playGame() {
-		
+
 		// user에 게임 참여 횟수 정보 저장
 		userService.gameStart(user);
-		
+
 		// 10개 퀴즈 랜덤으로 가져오기
 		List<Quiz> quizzes = quizService.selectQuizzes();
-		
+
 		Quiz quiz;
-		for(int i = 0; i < quizzes.size(); i++) {
+		for (int i = 0; i < quizzes.size(); i++) {
 			quiz = quizzes.get(i);
-			
+
 			// 퀴즈 옵션 정보 가져오기
 			quizService.setQuizOptions(quiz);
-			
+
 			outputView.writeQuiz(i + 1, quiz);
 			int userAnswer = inputView.readUserAnswer();
-			
+
 			// user 문제 푼 횟수 저장
 			userService.solvedQuiz(user);
-			
+
 			// 포기
-			if(userAnswer == 0) {
+			if (userAnswer == 0) {
 				userService.save(user);
 				return false;
 			}
@@ -138,14 +146,14 @@ public class WeirdQuizController {
 			if (quizService.isCorrectAnswer(quiz, userAnswer)) {
 				// 정답일 경우
 				outputView.writeCorrectAnswerMessage(i + 1, quiz);
-				
+
 				// user에 정답 정보 저장
 				userService.correctQuiz(user);
-				
+
 			} else {
 				// 오답일 경우
 				outputView.writeWrongAnswerMessage(quiz, userAnswer, i + 1);
-				
+
 				userService.save(user);
 				return true;
 			}
@@ -153,10 +161,10 @@ public class WeirdQuizController {
 
 		// 게임 성공
 		outputView.writeSuccessGameMessage();
-		
+
 		// user에 성공 정보 저장
 		userService.successQuiz(user);
-		
+
 		userService.save(user);
 		return false;
 	}
@@ -171,7 +179,7 @@ public class WeirdQuizController {
 	}
 
 	void executeGame() {
-		
+
 		// 게임 메뉴 선택
 		int gameMenuOption = selectGameMenu();
 
@@ -182,7 +190,8 @@ public class WeirdQuizController {
 
 		// 게임 시작
 		if (gameMenuOption == GameMenuOption.GAME_PLAY.getId()) {
-			while (playGame());
+			while (playGame())
+				;
 		}
 
 		// 기록 조회

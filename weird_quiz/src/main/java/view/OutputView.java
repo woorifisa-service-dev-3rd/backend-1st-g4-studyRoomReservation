@@ -97,7 +97,11 @@ public class OutputView {
 	}
 
 	public void writeLogoutMessage() {
-		// TODO Auto-generated method stub
+		System.out.println(Message.LOGOUT_MESSAGE);
+	}
+
+	public void writeExceptionMessage(String exceptionMessage) {
+		System.out.println(exceptionMessage);
 	}
 
 }
