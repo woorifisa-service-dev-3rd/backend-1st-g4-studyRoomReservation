@@ -1,6 +1,7 @@
 package controller;
 
 import model.LoginMenuOption;
+import model.User;
 import service.QuizService;
 import service.UserService;
 import view.InputView;
@@ -20,8 +21,8 @@ public class WeirdQuizController {
 			String userId = inputView.readUserId();
 			String password = inputView.readPassword();
 			
-			userService.login(userId, password);
-			
+			User loginUser = userService.login(userId, password);
+			System.out.println(loginUser);
 		}
 		
 		if(loginMenuOption == LoginMenuOption.SIGNUP.getId()) {
@@ -44,7 +45,6 @@ public class WeirdQuizController {
 		
 		// 사용자 입력 받기
 		int loginMenuOption = inputView.readLoginMenuOption();
-		
 		return loginMenuOption;
 	}
 	
