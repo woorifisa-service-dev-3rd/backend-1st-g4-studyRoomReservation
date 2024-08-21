@@ -6,7 +6,11 @@ import util.DBUtil;
 import java.sql.*;
 
 public class UserDAO {
-    private static final Connection connection = DBUtil.getConnection("src/resources/jdbc.properties");
+    private Connection connection;
+
+    public UserDAO(Connection connection) {
+        this.connection = connection;
+    }
 
     public User findById(String id) {
         final String selectQuery = "SELECT * FROM weird_quiz.user WHERE user_id = ?";

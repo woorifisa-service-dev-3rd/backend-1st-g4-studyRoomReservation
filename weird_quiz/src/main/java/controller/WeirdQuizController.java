@@ -14,12 +14,21 @@ import view.InputView;
 import view.OutputView;
 
 public class WeirdQuizController {
-	private static final UserService userService = new UserService();
-	private static final QuizService quizService = new QuizService();
-	private static final InputView inputView = new InputView();
-	private static final OutputView outputView = new OutputView();
+	private final UserService userService;
+	private final QuizService quizService;
+	private final InputView inputView;
+	private final OutputView outputView;
 	// DB 커넥션
-	private static Connection connection = DBUtil.getConnection("src/main/resources/jdbc.properties");
+	private final Connection connection;
+
+	public WeirdQuizController() {
+		connection = DBUtil.getConnection("src/main/resources/jdbc.properties");
+
+		userService = new UserService(connection);
+		quizService = new QuizService();
+		inputView = new InputView();
+		outputView = new OutputView();
+	}
 
 	public void run() {
 		while (true) {
@@ -28,7 +37,7 @@ public class WeirdQuizController {
 
 			if (loginMenuOption == LoginMenuOption.LOGIN.getId()) {
 				// 로그인
-				while (user != null) {
+				while (user == null) {
 					user = login();
 				}
 
@@ -38,7 +47,7 @@ public class WeirdQuizController {
 
 			if (loginMenuOption == LoginMenuOption.SIGNUP.getId()) {
 				// 회원가입
-				while (user != null) {
+				while (user == null) {
 					user = signup();
 				}
 

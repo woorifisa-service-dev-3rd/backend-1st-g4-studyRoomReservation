@@ -3,8 +3,16 @@ package service;
 import dao.UserDAO;
 import model.User;
 
+import java.sql.Connection;
+
 public class UserService {
-	static UserDAO userDAO = new UserDAO();
+	private Connection connection;
+	private static UserDAO userDAO;
+
+	public UserService(Connection connection) {
+		this.connection = connection;
+		userDAO = new UserDAO(connection);
+	}
 
 	public User login(String userId, String password) {
         User user = userDAO.findById(userId);
