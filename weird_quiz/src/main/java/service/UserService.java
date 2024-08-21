@@ -2,14 +2,14 @@ package service;
 
 public class UserService {
 
-	public void login(String userId, String password) {
+	public boolean login(String userId, String password) {
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
 
-	public void signup(String userId, String password, String userName) {
+	public boolean signup(String userId, String password, String userName) {
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
 
 }
