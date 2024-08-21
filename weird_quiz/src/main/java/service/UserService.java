@@ -1,9 +1,10 @@
 package service;
 
-import dao.UserDAO;
-import model.User;
-
 import java.sql.Connection;
+
+import dao.UserDAO;
+import lombok.extern.slf4j.Slf4j;
+import model.User;
 
 public class UserService {
 	private Connection connection;
@@ -15,6 +16,7 @@ public class UserService {
 	}
 
 	public User login(String userId, String password) {
+		
         User user = userDAO.findById(userId);
 		if (user != null && user.getPassword().equals(password)) {
 			return user;

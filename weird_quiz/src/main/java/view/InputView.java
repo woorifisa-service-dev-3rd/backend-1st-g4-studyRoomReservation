@@ -10,13 +10,12 @@ public class InputView {
 	
 
 	public int readLoginMenuOption() {
-		int option = Integer.parseInt(sc.next());
+		int option = sc.nextInt();
 		return option;
 	}
 
 	public int readGameMenuOption() {
-		// TODO Auto-generated method stub
-		return 0;
+		return sc.nextInt();
 	}
 
 	public String readUserId() {
