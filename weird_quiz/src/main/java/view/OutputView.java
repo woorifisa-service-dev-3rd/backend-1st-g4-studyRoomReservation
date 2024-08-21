@@ -1,5 +1,6 @@
 package view;
 
+import constants.Message;
 import model.User;
 
 public class OutputView {
@@ -15,8 +16,7 @@ public class OutputView {
 	}
 
 	public void writeGameGuide() {
-		// TODO Auto-generated method stub
-
+		System.out.println(Message.GAME_GUIDE);
 	}
 
 	public void writeQuiz() {
