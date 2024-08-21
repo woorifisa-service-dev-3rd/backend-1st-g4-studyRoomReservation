@@ -7,8 +7,8 @@ public class InputView {
 	
 
 	public int readLoginMenuOption() {
-		// TODO Auto-generated method stub
-		return 0;
+		int option = Integer.parseInt(sc.next());
+		return option;
 	}
 
 	public int readGameMenuOption() {
@@ -17,18 +17,18 @@ public class InputView {
 	}
 
 	public String readUserId() {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("아이디를 입력해주세요.");
+		return sc.next();
 	}
 
 	public String readPassword() {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("비밀번호를 입력해주세요.");
+		return sc.next();
 	}
 
 	public String readUserName() {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("이름을 입력해주세요.");
+		return sc.next();
 	}
 
 }
