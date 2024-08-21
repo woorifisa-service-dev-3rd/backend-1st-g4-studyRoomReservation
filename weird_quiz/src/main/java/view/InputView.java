@@ -31,4 +31,9 @@ public class InputView {
 		return sc.next();
 	}
 
+	public int readUserAnswer() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
