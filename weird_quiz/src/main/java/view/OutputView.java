@@ -4,20 +4,24 @@ import java.util.List;
 
 import model.Quiz;
 import model.QuizOption;
+import constants.GameMenuOption;
 import constants.Message;
 import model.User;
 
 public class OutputView {
 
 	public void writeLoginMenu() {
-		System.out.println("1. 로그인 하기\n" +
-				"2. 회원가입 하기\n" +
-				"3. 종료");
+		System.out.println("1. 로그인 하기\n" + "2. 회원가입 하기\n" + "3. 종료");
 	}
 
 	public void writeGameMenu() {
-		// TODO Auto-generated method stub
-
+		StringBuilder sb = new StringBuilder();
+		sb.append(GameMenuOption.GAME_GUIDE.getId()).append(". ").append(GameMenuOption.GAME_GUIDE.getContent()).append("\n");
+		sb.append(GameMenuOption.GAME_PLAY.getId()).append(". ").append(GameMenuOption.GAME_PLAY.getContent()).append("\n");
+		sb.append(GameMenuOption.GAME_STATS.getId()).append(". ").append(GameMenuOption.GAME_STATS.getContent()).append("\n");
+		sb.append(GameMenuOption.LOGOUT.getId()).append(". ").append(GameMenuOption.LOGOUT.getContent()).append("\n");
+		
+		System.out.println(sb);
 	}
 
 	public void writeGameGuide() {
@@ -27,17 +31,17 @@ public class OutputView {
 	public void writeQuiz(int num, Quiz quiz) {
 
 		StringBuilder write = new StringBuilder();
-		
+
 		// 문제
 		write.append("[").append(num).append("-" + quiz.getId()).append("] ").append(quiz.getContent()).append("\n");
-		
+
 		List<QuizOption> options = quiz.getOptions();
-		for(int i = 0; i < options.size(); i++) {
+		for (int i = 0; i < options.size(); i++) {
 			write.append(i + 1).append(". ").append(options.get(i).getContent()).append("\n");
 		}
-		
+
 		write.append("(포기하시려면 0번을 입력하세요 ...)");
-		
+
 		System.out.println(write);
 	}
 
@@ -48,34 +52,32 @@ public class OutputView {
 
 	public void writeCorrectAnswerMessage(int num, Quiz quiz) {
 
-		if(quiz.isWeird()) { // 이상한 문제인 경우
-			if(num == 10) { // 마지막 문제일 경우
+		if (quiz.isWeird()) { // 이상한 문제인 경우
+			if (num == 10) { // 마지막 문제일 경우
 				System.out.println("이상한 점을 발견하셨군요.\n\n");
-			}
-			else {
+			} else {
 				System.out.println("이상한 점을 발견하셨군요. 다음 단계로 이동합니다.. 😮‍💨\n");
 			}
 		} else { // 정상적인 문제인 경우
-			if(num == 10) { // 마지막 문제일 경우
+			if (num == 10) { // 마지막 문제일 경우
 				System.out.println("정답입니다.\n\n");
-			}
-			else {
+			} else {
 				System.out.println("정답입니다. 다음 단계로 이동합니다.. 😮‍💨\n");
 			}
 		}
 	}
 
 	public void writeWrongAnswerMessage(Quiz quiz, int answer, int num) {
-		
-		if(quiz.isWeird()) { // 이상한 문제인 경우
-			
+
+		if (quiz.isWeird()) { // 이상한 문제인 경우
+
 			StringBuilder write = new StringBuilder();
 			write.append(quiz.getOptions().get(answer - 1).getWeirdAnswerMessage()).append("\n");
 
 			// TODO 단계 별로 다른 약올리는 메세지 추가
-			
+
 			System.out.println(write);
-			
+
 		} else { // 정상적인 문제인 경우
 			System.out.println("틀렸습니다! 처음으로 되돌아갑니다 🎉🎉");
 		}

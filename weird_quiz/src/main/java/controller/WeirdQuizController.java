@@ -120,7 +120,7 @@ public class WeirdQuizController {
 			int userAnswer = inputView.readUserAnswer();
 			
 			// 포기
-			if(userAnswer == 0) return true;
+			if(userAnswer == 0) return false;
 
 			if (quizService.isCorrectAnswer(quiz, userAnswer)) {
 				// 정답일 경우
@@ -158,7 +158,9 @@ public class WeirdQuizController {
 		int gameMenuOption = selectGameMenu();
 
 		// 게임 방법
+		System.out.println(gameMenuOption + " " + GameMenuOption.GAME_GUIDE.getId());
 		if (gameMenuOption == GameMenuOption.GAME_GUIDE.getId()) {
+			System.out.println("hello");
 			guideGame();
 		}
 
