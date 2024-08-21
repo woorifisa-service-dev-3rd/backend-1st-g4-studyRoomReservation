@@ -14,17 +14,20 @@ import view.InputView;
 import view.OutputView;
 
 public class WeirdQuizController {
-	private static final UserService userService = new UserService();
-	private static QuizService quizService;
-	private static final InputView inputView = new InputView();
-	private static final OutputView outputView = new OutputView();
+	private final UserService userService;
+	private final QuizService quizService;
+	private final InputView inputView;
+	private final OutputView outputView;
 	// DB 커넥션
-	private static Connection connection;
+	private final Connection connection;
 	
 	public WeirdQuizController() {
 		connection = DBUtil.getConnection("src/main/resources/jdbc.properties");
 		
+		userService = new UserService();
 		quizService = new QuizService(connection);
+		inputView = new InputView();
+		outputView = new OutputView();
 	}
 
 	public void run() {
