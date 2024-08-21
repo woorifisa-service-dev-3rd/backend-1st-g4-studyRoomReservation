@@ -38,4 +38,23 @@ public class UserService {
 		return userDAO.save(newUser);
 	}
 
+	public void gameStart(User user) {
+		user.setGameAttemptCount(user.getGameAttemptCount() + 1);
+	}
+	
+	public void solvedQuiz(User user) {
+		user.setQuizSolvedCount(user.getQuizSolvedCount() + 1);
+	}
+	
+	public void correctQuiz(User user) {
+		user.setQuizCorrectCount(user.getQuizCorrectCount() + 1);
+	}
+	
+	public void successQuiz(User user) {
+		user.setGameSuccessCount(user.getGameSuccessCount() + 1);
+	}
+	
+	public void save(User user) { // 게임 정보 저장
+		userDAO.updateById(user);
+	}
 }
