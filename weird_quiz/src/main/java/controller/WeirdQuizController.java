@@ -120,7 +120,7 @@ public class WeirdQuizController {
 			int userAnswer = inputView.readUserAnswer();
 			
 			// 포기
-			if(userAnswer == 0) return true;
+			if(userAnswer == 0) return false;
 
 			if (quizService.isCorrectAnswer(quiz, userAnswer)) {
 				// 정답일 경우
