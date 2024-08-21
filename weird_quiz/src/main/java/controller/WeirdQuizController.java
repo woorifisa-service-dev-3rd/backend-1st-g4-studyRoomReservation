@@ -20,6 +20,8 @@ public class WeirdQuizController {
 	private final OutputView outputView;
 	// DB 커넥션
 	private final Connection connection;
+	
+	private User user;
 
 	public WeirdQuizController() {
 		connection = DBUtil.getConnection("src/main/resources/jdbc.properties");
@@ -34,7 +36,7 @@ public class WeirdQuizController {
 		
 		while (true) {
 			int loginMenuOption = selectLoginMenu();
-			User user = null;
+			user = null;
 
 			if (loginMenuOption == LoginMenuOption.LOGIN.getId()) {
 				// 로그인
@@ -42,7 +44,7 @@ public class WeirdQuizController {
 					user = login();
 				}
 
-				executeGame(user);
+				executeGame();
 
 			}
 
@@ -52,7 +54,7 @@ public class WeirdQuizController {
 					user = signup();
 				}
 
-				executeGame(user);
+				executeGame();
 			}
 
 			if (loginMenuOption == LoginMenuOption.EXIT.getId()) {
@@ -104,7 +106,8 @@ public class WeirdQuizController {
 
 	boolean playGame() {
 		
-		// TODO user에 게임 참여 횟수 정보 저장
+		// user에 게임 참여 횟수 정보 저장
+		userService.gameStart(user);
 		
 		// 10개 퀴즈 랜덤으로 가져오기
 		List<Quiz> quizzes = quizService.selectQuizzes();
@@ -119,41 +122,52 @@ public class WeirdQuizController {
 			outputView.writeQuiz(i + 1, quiz);
 			int userAnswer = inputView.readUserAnswer();
 			
+			// user 문제 푼 횟수 저장
+			userService.solvedQuiz(user);
+			
 			// 포기
-			if(userAnswer == 0) return false;
+			if(userAnswer == 0) {
+				userService.save(user);
+				return true;
+			}
 
 			if (quizService.isCorrectAnswer(quiz, userAnswer)) {
 				// 정답일 경우
 				outputView.writeCorrectAnswerMessage(i + 1, quiz);
 				
-				// TODO user에 정답 정보 저장
+				// user에 정답 정보 저장
+				userService.correctQuiz(user);
+				
 			} else {
 				// 오답일 경우
 				outputView.writeWrongAnswerMessage(quiz, userAnswer, i + 1);
 				
-				// TODO user에 정답 정보 저장
-				
+				userService.save(user);
 				return true;
 			}
 		}
 
 		// 게임 성공
 		outputView.writeSuccessGameMessage();
-		// TODO user에 성공 정보 저장
 		
+		// user에 성공 정보 저장
+		userService.successQuiz(user);
+		
+		userService.save(user);
 		return false;
 	}
 
-	void getGameStats(User user) {
+	void getGameStats() {
 		outputView.writeGameStats(user);
 	}
 
-	void logout(User user) {
+	void logout() {
 		user = null;
 		outputView.writeLogoutMessage();
 	}
 
-	void executeGame(User user) {
+	void executeGame() {
+		
 		// 게임 메뉴 선택
 		int gameMenuOption = selectGameMenu();
 
@@ -169,12 +183,12 @@ public class WeirdQuizController {
 
 		// 기록 조회
 		if (gameMenuOption == GameMenuOption.GAME_STATS.getId()) {
-			getGameStats(user);
+			getGameStats();
 		}
 
 		// 로그아웃
 		if (gameMenuOption == GameMenuOption.LOGOUT.getId()) {
-			logout(user);
+			logout();
 		}
 	}
 

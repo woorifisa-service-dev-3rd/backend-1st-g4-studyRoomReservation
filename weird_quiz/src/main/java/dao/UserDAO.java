@@ -51,4 +51,20 @@ public class UserDAO {
             throw new RuntimeException(e);
         }
     }
+    
+    public void updateById(User user) {
+    	final String query = "UPDATE user SET game_attempt_count = ?, game_success_count = ?, quiz_solved_count = ?, quiz_correct_count = ? WHERE user_id = ?";
+    	
+    	try(PreparedStatement statement = connection.prepareStatement(query)) {
+    		statement.setLong(1, user.getGameAttemptCount());
+    		statement.setLong(2, user.getGameSuccessCount());
+    		statement.setLong(3, user.getQuizSolvedCount());
+    		statement.setLong(4, user.getQuizCorrectCount());
+    		statement.setString(5, user.getUserId());
+    		
+    		 statement.executeUpdate();
+    	} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    }
 }
