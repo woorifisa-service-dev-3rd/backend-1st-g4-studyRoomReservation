@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.Connection;
 import java.util.List;
 
 import model.GameMenuOption;
@@ -8,6 +9,7 @@ import model.Quiz;
 import model.User;
 import service.QuizService;
 import service.UserService;
+import util.DBUtil;
 import view.InputView;
 import view.OutputView;
 
@@ -16,6 +18,8 @@ public class WeirdQuizController {
 	private static final QuizService quizService = new QuizService();
 	private static final InputView inputView = new InputView();
 	private static final OutputView outputView = new OutputView();
+	// DB 커넥션
+	private static Connection connection = DBUtil.getConnection("src/main/resources/jdbc.properties");
 
 	public void run() {
 		while (true) {
