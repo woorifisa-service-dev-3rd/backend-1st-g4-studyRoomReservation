@@ -3,8 +3,8 @@ package controller;
 import java.sql.Connection;
 import java.util.List;
 
-import model.GameMenuOption;
-import model.LoginMenuOption;
+import constants.GameMenuOption;
+import constants.LoginMenuOption;
 import model.Quiz;
 import model.User;
 import service.QuizService;
@@ -25,12 +25,13 @@ public class WeirdQuizController {
 		connection = DBUtil.getConnection("src/main/resources/jdbc.properties");
 
 		userService = new UserService(connection);
-		quizService = new QuizService();
+		quizService = new QuizService(connection);
 		inputView = new InputView();
 		outputView = new OutputView();
 	}
 
 	public void run() {
+		
 		while (true) {
 			int loginMenuOption = selectLoginMenu();
 			User user = null;
@@ -102,23 +103,44 @@ public class WeirdQuizController {
 	}
 
 	boolean playGame() {
+		
+		// TODO user에 게임 참여 횟수 정보 저장
+		
+		// 10개 퀴즈 랜덤으로 가져오기
 		List<Quiz> quizzes = quizService.selectQuizzes();
-
-		for (Quiz quiz : quizzes) {
-			outputView.writeQuiz();
+		
+		Quiz quiz;
+		for(int i = 0; i < quizzes.size(); i++) {
+			quiz = quizzes.get(i);
+			
+			// 퀴즈 옵션 정보 가져오기
+			quizService.setQuizOptions(quiz);
+			
+			outputView.writeQuiz(i + 1, quiz);
 			int userAnswer = inputView.readUserAnswer();
+			
+			// 포기
+			if(userAnswer == 0) return true;
 
 			if (quizService.isCorrectAnswer(quiz, userAnswer)) {
 				// 정답일 경우
-				outputView.writeCorrectAnswerMessage();
+				outputView.writeCorrectAnswerMessage(i + 1, quiz);
+				
+				// TODO user에 정답 정보 저장
 			} else {
 				// 오답일 경우
-				outputView.writeWrongAnswerMessage();
+				outputView.writeWrongAnswerMessage(quiz, userAnswer, i + 1);
+				
+				// TODO user에 정답 정보 저장
+				
 				return true;
 			}
 		}
 
+		// 게임 성공
 		outputView.writeSuccessGameMessage();
+		// TODO user에 성공 정보 저장
+		
 		return false;
 	}
 
