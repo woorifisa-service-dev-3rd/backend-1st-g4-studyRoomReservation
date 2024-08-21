@@ -168,8 +168,6 @@ public class WeirdQuizController {
 
 	void executeGame() {
 		
-		playGame();
-		
 		// 게임 메뉴 선택
 		int gameMenuOption = selectGameMenu();
 
