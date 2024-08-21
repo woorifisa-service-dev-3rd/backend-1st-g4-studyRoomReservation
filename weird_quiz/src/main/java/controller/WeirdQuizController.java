@@ -3,8 +3,8 @@ package controller;
 import java.sql.Connection;
 import java.util.List;
 
-import model.GameMenuOption;
-import model.LoginMenuOption;
+import constants.GameMenuOption;
+import constants.LoginMenuOption;
 import model.Quiz;
 import model.User;
 import service.QuizService;
