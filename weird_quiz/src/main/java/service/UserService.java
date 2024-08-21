@@ -7,7 +7,7 @@ import java.sql.Connection;
 
 public class UserService {
 	private Connection connection;
-	private static UserDAO userDAO;
+	private UserDAO userDAO;
 
 	public UserService(Connection connection) {
 		this.connection = connection;
