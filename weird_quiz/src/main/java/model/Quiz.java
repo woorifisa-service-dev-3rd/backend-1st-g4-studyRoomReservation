@@ -18,11 +18,4 @@ public class Quiz {
 	private boolean isWeird;
 	
 	private List<QuizOption> options = new ArrayList<>();
-
-	@Override
-	public String toString() {
-		return "Quiz [id=" + id + ", content=" + content + ", isWeird=" + isWeird + ", options=" + options + "]";
-	}
-	
-	
 }
