@@ -41,7 +41,7 @@ public class InputView {
 		try {
 			ret = Integer.parseInt(br.readLine());
 		} catch (NumberFormatException | IOException e) {
-			e.printStackTrace();
+			return -1;
 		}
 		
 		return ret;

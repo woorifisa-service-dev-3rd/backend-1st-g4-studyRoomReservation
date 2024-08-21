@@ -95,6 +95,10 @@ public class OutputView {
 	public void writeSuccessGameMessage() {
 		System.out.println(Message.ALL_CORRECT);
 	}
+	
+	public void writeInvalidInputMessage() {
+		System.out.println(Message.INVALID_INPUT);
+	}
 
 	public void writeLogoutMessage() {
 		// TODO Auto-generated method stub
