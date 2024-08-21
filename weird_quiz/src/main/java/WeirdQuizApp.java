@@ -1,6 +1,3 @@
-import java.sql.Connection;
-
-import util.DBUtil;
 import controller.WeirdQuizController;
 
 public class WeirdQuizApp {
