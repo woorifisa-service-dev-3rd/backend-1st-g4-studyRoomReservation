@@ -11,7 +11,7 @@ import model.QuizOption;
 
 public class QuizOptionDAO {
 
-	private Connection connection;
+	private final Connection connection;
 	
 	public QuizOptionDAO(Connection connection) {
 		this.connection = connection;

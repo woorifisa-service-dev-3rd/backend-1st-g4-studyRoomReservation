@@ -10,10 +10,10 @@ import model.QuizOption;
 
 public class QuizService {
 	
-	private Connection connection;
+	private final Connection connection;
 	
-	private QuizDAO quizDAO;
-	private QuizOptionDAO quizOptionDAO;
+	private final QuizDAO quizDAO;
+	private final QuizOptionDAO quizOptionDAO;
 	
 	public QuizService(Connection connection) {
 		this.connection = connection;
