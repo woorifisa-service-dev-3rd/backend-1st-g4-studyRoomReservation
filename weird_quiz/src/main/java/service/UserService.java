@@ -1,15 +1,19 @@
 package service;
 
+import model.User;
+
 public class UserService {
 
-	public void login(String userId, String password) {
+	public User login(String userId, String password) {
 		// TODO Auto-generated method stub
-		
+		User user = null;
+		return user;
 	}
 
-	public void signup(String userId, String password, String userName) {
+	public User signup(String userId, String password, String userName) {
 		// TODO Auto-generated method stub
-		
+		User user = null;
+		return user;
 	}
 
 }
