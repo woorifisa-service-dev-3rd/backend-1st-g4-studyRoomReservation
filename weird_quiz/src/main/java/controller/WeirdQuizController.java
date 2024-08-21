@@ -20,11 +20,11 @@ public class WeirdQuizController {
 	private final OutputView outputView;
 	// DB 커넥션
 	private final Connection connection;
-	
+
 	public WeirdQuizController() {
 		connection = DBUtil.getConnection("src/main/resources/jdbc.properties");
-		
-		userService = new UserService();
+
+		userService = new UserService(connection);
 		quizService = new QuizService(connection);
 		inputView = new InputView();
 		outputView = new OutputView();
@@ -38,7 +38,7 @@ public class WeirdQuizController {
 
 			if (loginMenuOption == LoginMenuOption.LOGIN.getId()) {
 				// 로그인
-				while (user != null) {
+				while (user == null) {
 					user = login();
 				}
 
@@ -48,7 +48,7 @@ public class WeirdQuizController {
 
 			if (loginMenuOption == LoginMenuOption.SIGNUP.getId()) {
 				// 회원가입
-				while (user != null) {
+				while (user == null) {
 					user = signup();
 				}
 

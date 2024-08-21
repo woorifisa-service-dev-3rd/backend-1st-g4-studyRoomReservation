@@ -10,8 +10,9 @@ import model.User;
 public class OutputView {
 
 	public void writeLoginMenu() {
-		// TODO Auto-generated method stub
-
+		System.out.println("1. 로그인 하기\n" +
+				"2. 회원가입 하기\n" +
+				"3. 종료");
 	}
 
 	public void writeGameMenu() {
