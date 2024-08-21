@@ -44,7 +44,9 @@ public class WeirdQuizController {
 					user = login();
 				}
 
-				executeGame();
+				while(user != null) {
+					executeGame();
+				}
 
 			}
 
@@ -54,7 +56,9 @@ public class WeirdQuizController {
 					user = signup();
 				}
 
-				executeGame();
+				while(user != null) {
+					executeGame();
+				}
 			}
 
 			if (loginMenuOption == LoginMenuOption.EXIT.getId()) {
@@ -139,7 +143,7 @@ public class WeirdQuizController {
 			// 포기
 			if(userAnswer == 0) {
 				userService.save(user);
-				return true;
+				return false;
 			}
 
 			if (quizService.isCorrectAnswer(quiz, userAnswer)) {
