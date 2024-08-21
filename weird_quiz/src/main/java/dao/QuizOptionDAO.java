@@ -30,7 +30,7 @@ public class QuizOptionDAO {
 			preparedStatement.setLong(1, quizId);
 			resultSet = preparedStatement.executeQuery();
 			
-			if(resultSet.next()) {
+			while(resultSet.next()) {
 				int id = resultSet.getInt("quiz_option_id");
 				String content = resultSet.getString("quiz_option_content");
 				boolean isAnswer = resultSet.getBoolean("is_answer");

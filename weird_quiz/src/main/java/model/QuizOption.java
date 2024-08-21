@@ -14,4 +14,10 @@ public class QuizOption {
 	private boolean isAnswer;
 	
 	private String weirdAnswerMessage;
+
+	@Override
+	public String toString() {
+		return "QuizOption [id=" + id + ", content=" + content + ", isAnswer=" + isAnswer + ", weirdAnswerMessage="
+				+ weirdAnswerMessage + "]";
+	}
 }
