@@ -7,8 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import model.User;
 
 public class UserService {
-	private Connection connection;
-	private static UserDAO userDAO;
+	private final Connection connection;
+	private final UserDAO userDAO;
 
 	public UserService(Connection connection) {
 		this.connection = connection;
