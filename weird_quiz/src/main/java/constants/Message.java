@@ -21,6 +21,6 @@ public class Message {
 	public static String WEIRD_WRONG_ANSWER = "아쉽군요! 처음으로 되돌아갑니다 🎉🎉🎉🎉";
 	
 	public static String ALL_CORRECT = "모든 문제를 맞추셨습니다. 메인으로 돌아갑니다 .. 😔";
-	
-	public static String INVALID_INPUT = "잘못된 입력입니다. 다시 입력해주세요.";
+
+	public static String LOGOUT_MESSAGE = "안녕히가세요 ^-^";
 }
