@@ -132,8 +132,19 @@ public class WeirdQuizController {
 			quizService.setQuizOptions(quiz);
 
 			outputView.writeQuiz(i + 1, quiz);
-			int userAnswer = inputView.readUserAnswer();
-
+			int userAnswer;
+			
+			while(true) {
+				userAnswer = inputView.readUserAnswer();
+				
+				if(userAnswer >= 0 && userAnswer <= quiz.getOptions().size()) { // 올바른 입력
+					break;
+				}
+				else { // 정답 잘못 입력
+					outputView.writeInvalidInputMessage();
+				}
+			}
+			
 			// user 문제 푼 횟수 저장
 			userService.solvedQuiz(user);
 

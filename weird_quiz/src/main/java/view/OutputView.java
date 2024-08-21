@@ -2,6 +2,7 @@ package view;
 
 import java.util.List;
 
+import constants.ExceptionMessage;
 import constants.GameMenuOption;
 import constants.LoginMenuOption;
 import model.Quiz;
@@ -94,6 +95,10 @@ public class OutputView {
 
 	public void writeSuccessGameMessage() {
 		System.out.println(Message.ALL_CORRECT);
+	}
+	
+	public void writeInvalidInputMessage() {
+		System.out.println(ExceptionMessage.INVALID_INPUT.getMessage());
 	}
 
 	public void writeLogoutMessage() {
