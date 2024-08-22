@@ -123,4 +123,9 @@ public class OutputView {
 		System.out.printf(Message.SIGNUP_MESSAGE, userName);
 	}
 
+	public void writeExitMessage() {
+		System.out.println(Message.EXIT_MESSAGE);
+		
+	}
+
 }

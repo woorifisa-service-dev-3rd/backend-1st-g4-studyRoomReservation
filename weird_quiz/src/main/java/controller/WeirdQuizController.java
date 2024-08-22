@@ -89,6 +89,7 @@ public class WeirdQuizController {
 
 			if (loginMenuOption == LoginMenuOption.EXIT.getId()) {
 				// 종료
+				outputView.writeExitMessage();
 				break;
 			}
 		}

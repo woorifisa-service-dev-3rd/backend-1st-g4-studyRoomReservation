@@ -25,4 +25,6 @@ public class Message {
 	public static String LOGOUT_MESSAGE = "안녕히가세요 ^-^";
 	public static String LOGIN_MESSAGE = "다시 오셨군요 %s님 기다리고 있었습니다! 함께 재밌는 문제를 풀어봐요!\n";
 	public static String SIGNUP_MESSAGE = "만나서 반가워요 %s님. 함께 재밌는 문제를 풀어봐요!\n";
+
+	public static String EXIT_MESSAGE = "THE END ^___^";
 }
