@@ -25,8 +25,8 @@ public class WeirdQuizController {
 
 	private User user;
 
-	public WeirdQuizController() {
-		connection = DBUtil.getConnection("src/main/resources/jdbc.properties");
+	public WeirdQuizController(String connectionPath) {
+		connection = DBUtil.getConnection(connectionPath);
 
 		userService = new UserService(connection);
 		quizService = new QuizService(connection);
