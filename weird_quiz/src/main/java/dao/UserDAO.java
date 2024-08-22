@@ -13,7 +13,7 @@ public class UserDAO {
     }
 
     public User findById(String id) {
-        final String selectQuery = "SELECT * FROM weird_quiz.user WHERE user_id = ?";
+        final String selectQuery = "SELECT * FROM weird_quiz.users WHERE user_id = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(selectQuery)) {
             statement.setString(1, id);
@@ -38,7 +38,7 @@ public class UserDAO {
     }
 
     public User save(User user) {
-        final String insertQuery = "INSERT INTO weird_quiz.user(user_id, password, user_name) VALUES (?, ?, ?)";
+        final String insertQuery = "INSERT INTO weird_quiz.users(user_id, password, user_name) VALUES (?, ?, ?)";
 
         try (PreparedStatement statement = connection.prepareStatement(insertQuery)) {
             statement.setString(1, user.getUserId());
@@ -53,7 +53,7 @@ public class UserDAO {
     }
     
     public void updateById(User user) {
-    	final String query = "UPDATE user SET game_attempt_count = ?, game_success_count = ?, quiz_solved_count = ?, quiz_correct_count = ? WHERE user_id = ?";
+    	final String query = "UPDATE users SET game_attempt_count = ?, game_success_count = ?, quiz_solved_count = ?, quiz_correct_count = ? WHERE user_id = ?";
     	
     	try(PreparedStatement statement = connection.prepareStatement(query)) {
     		statement.setLong(1, user.getGameAttemptCount());
