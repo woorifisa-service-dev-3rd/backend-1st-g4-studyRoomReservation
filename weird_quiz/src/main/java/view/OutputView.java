@@ -2,6 +2,7 @@ package view;
 
 import java.util.List;
 
+import constants.ExceptionMessage;
 import constants.GameMenuOption;
 import constants.LoginMenuOption;
 import model.Quiz;
@@ -55,6 +56,7 @@ public class OutputView {
 	public void writeGameStats(User user) {
 
 		StringBuilder write = new StringBuilder();
+
         write.append(user.getUserName()).append("님의 게임 기록입니다.").append("\n");
 
         double successRate = userService.calSuccessRate(user);
@@ -64,6 +66,7 @@ public class OutputView {
         write.append(String.format("정답률: %.2f%%", correctAnswerRate));
 
         System.out.println(write.toString());
+
 
 	}
 
@@ -106,9 +109,26 @@ public class OutputView {
 	public void writeSuccessGameMessage() {
 		System.out.println(Message.ALL_CORRECT);
 	}
+	
+	public void writeInvalidInputMessage() {
+		System.out.println(ExceptionMessage.INVALID_INPUT.getMessage());
+	}
 
 	public void writeLogoutMessage() {
-		// TODO Auto-generated method stub
+		System.out.println(Message.LOGOUT_MESSAGE);
+	}
+
+	public void writeExceptionMessage(String exceptionMessage) {
+		System.out.println(exceptionMessage);
+	}
+
+	public void writeWelcomeLoginUser(User user) {
+		System.out.printf(Message.LOGIN_MESSAGE, user.getUserName());
+		
+	}
+
+	public void writeWelcomeSignupUser(User user) {
+		System.out.printf(Message.SIGNUP_MESSAGE, user.getUserName());
 	}
 
 }

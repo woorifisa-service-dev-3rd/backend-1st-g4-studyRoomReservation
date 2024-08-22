@@ -21,6 +21,8 @@ public class WeirdQuizController {
 	// DB 커넥션
 	private final Connection connection;
 
+	private User user;
+
 	public WeirdQuizController() {
 		connection = DBUtil.getConnection("src/main/resources/jdbc.properties");
 
@@ -31,28 +33,44 @@ public class WeirdQuizController {
 	}
 
 	public void run() {
-		
+
 		while (true) {
 			int loginMenuOption = selectLoginMenu();
-			User user = null;
+			user = null;
 
 			if (loginMenuOption == LoginMenuOption.LOGIN.getId()) {
 				// 로그인
 				while (user == null) {
-					user = login();
+					try {
+						user = login();
+					}catch(RuntimeException e) {
+						outputView.writeExceptionMessage(e.getMessage());
+					}
 				}
 
-				executeGame(user);
+				outputView.writeWelcomeLoginUser(user);
+				
+				while (user != null) {
+					executeGame();
+				}
 
 			}
 
 			if (loginMenuOption == LoginMenuOption.SIGNUP.getId()) {
 				// 회원가입
 				while (user == null) {
-					user = signup();
+					try {
+						user = signup();
+					} catch (RuntimeException e) {
+						outputView.writeExceptionMessage(e.getMessage());
+					}
 				}
 
-				executeGame(user);
+				outputView.writeWelcomeSignupUser(user);
+				
+				while (user != null) {
+					executeGame();
+				}
 			}
 
 			if (loginMenuOption == LoginMenuOption.EXIT.getId()) {
@@ -103,57 +121,80 @@ public class WeirdQuizController {
 	}
 
 	boolean playGame() {
-		
-		// TODO user에 게임 참여 횟수 정보 저장
-		
+
+		// user에 게임 참여 횟수 정보 저장
+		userService.gameStart(user);
+
 		// 10개 퀴즈 랜덤으로 가져오기
 		List<Quiz> quizzes = quizService.selectQuizzes();
-		
+
 		Quiz quiz;
-		for(int i = 0; i < quizzes.size(); i++) {
+		for (int i = 0; i < quizzes.size(); i++) {
 			quiz = quizzes.get(i);
-			
+
 			// 퀴즈 옵션 정보 가져오기
 			quizService.setQuizOptions(quiz);
-			
+
 			outputView.writeQuiz(i + 1, quiz);
-			int userAnswer = inputView.readUserAnswer();
+			int userAnswer;
 			
+			while(true) {
+				userAnswer = inputView.readUserAnswer();
+				
+				if(userAnswer >= 0 && userAnswer <= quiz.getOptions().size()) { // 올바른 입력
+					break;
+				}
+				else { // 정답 잘못 입력
+					outputView.writeInvalidInputMessage();
+				}
+			}
+			
+			// user 문제 푼 횟수 저장
+			userService.solvedQuiz(user);
+
 			// 포기
-			if(userAnswer == 0) return false;
+			if (userAnswer == 0) {
+				userService.save(user);
+				return false;
+			}
 
 			if (quizService.isCorrectAnswer(quiz, userAnswer)) {
 				// 정답일 경우
 				outputView.writeCorrectAnswerMessage(i + 1, quiz);
-				
-				// TODO user에 정답 정보 저장
+
+				// user에 정답 정보 저장
+				userService.correctQuiz(user);
+
 			} else {
 				// 오답일 경우
 				outputView.writeWrongAnswerMessage(quiz, userAnswer, i + 1);
-				
-				// TODO user에 정답 정보 저장
-				
+
+				userService.save(user);
 				return true;
 			}
 		}
 
 		// 게임 성공
 		outputView.writeSuccessGameMessage();
-		// TODO user에 성공 정보 저장
-		
+
+		// user에 성공 정보 저장
+		userService.successQuiz(user);
+
+		userService.save(user);
 		return false;
 	}
 
-	void getGameStats(User user) {
+	void getGameStats() {
 		outputView.writeGameStats(user);
 	}
 
-	void logout(User user) {
+	void logout() {
 		user = null;
 		outputView.writeLogoutMessage();
 	}
 
-	void executeGame(User user) {
+	void executeGame() {
+
 		// 게임 메뉴 선택
 		int gameMenuOption = selectGameMenu();
 
@@ -164,17 +205,18 @@ public class WeirdQuizController {
 
 		// 게임 시작
 		if (gameMenuOption == GameMenuOption.GAME_PLAY.getId()) {
-			while (playGame());
+			while (playGame())
+				;
 		}
 
 		// 기록 조회
 		if (gameMenuOption == GameMenuOption.GAME_STATS.getId()) {
-			getGameStats(user);
+			getGameStats();
 		}
 
 		// 로그아웃
 		if (gameMenuOption == GameMenuOption.LOGOUT.getId()) {
-			logout(user);
+			logout();
 		}
 	}
 
