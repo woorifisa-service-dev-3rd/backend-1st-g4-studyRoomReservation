@@ -59,4 +59,22 @@ public class UserService {
 	public void save(User user) { // 게임 정보 저장
 		userDAO.updateById(user);
 	}
+
+	public double calSuccessRate(User user) {
+		// 성공률 계산
+        if (user.getGameAttemptCount() > 0) {
+            return (double) user.getGameSuccessCount() / user.getGameAttemptCount() * 100;
+        }
+        return 0;
+    }
+
+  
+    public double calCorrectAnswerRate(User user) {
+		  // 정답률 계산
+        if (user.getQuizSolvedCount() > 0) {
+            return (double) user.getQuizCorrectCount() / user.getQuizSolvedCount() * 100;
+        }
+        return 0;
+    }
+
 }
