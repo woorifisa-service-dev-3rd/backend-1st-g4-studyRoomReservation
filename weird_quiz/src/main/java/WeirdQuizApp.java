@@ -1,9 +1,13 @@
 
+import controller.WeirdQuizController;
+
 public class WeirdQuizApp {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	private static WeirdQuizController controller;
 
+	public static void main(String[] args) {
+		controller = new WeirdQuizController(args[0]);
+		controller.run();
 	}
 
 }
