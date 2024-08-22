@@ -1,6 +1,6 @@
 use weird_quiz;
 
-INSERT INTO user(user_id, password, user_name)
+INSERT INTO users(user_id, password, user_name)
 VALUES ('user1', '1234', '김우리');
 
 INSERT INTO quizzes(quiz_content, is_weird)
