@@ -1,10 +1,12 @@
+
 import controller.WeirdQuizController;
 
 public class WeirdQuizApp {
 
-	private static final WeirdQuizController controller = new WeirdQuizController();
+	private static WeirdQuizController controller;
 
 	public static void main(String[] args) {
+		controller = new WeirdQuizController(args[0]);
 		controller.run();
 	}
 
