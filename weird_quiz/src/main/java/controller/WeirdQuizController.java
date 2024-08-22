@@ -1,8 +1,10 @@
 package controller;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
+import constants.ExceptionMessage;
 import constants.GameMenuOption;
 import constants.LoginMenuOption;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +38,7 @@ public class WeirdQuizController {
 
 	public void run() {
 
-		while (true) {
+		start : while (true) {
 			int loginMenuOption = selectLoginMenu();
 			user = null;
 
@@ -48,6 +50,10 @@ public class WeirdQuizController {
 					}catch(RuntimeException e) {
 						log.error(e.getMessage());
 						outputView.writeExceptionMessage(e.getMessage());
+						
+						if(e.getMessage().equals(ExceptionMessage.LOGIN_EXIT.getMessage())) {
+							continue start;
+						}
 					}
 				}
 
@@ -67,6 +73,10 @@ public class WeirdQuizController {
 					} catch (RuntimeException e) {
 						log.error(e.getMessage());
 						outputView.writeExceptionMessage(e.getMessage());
+						
+						if(e.getMessage().equals(ExceptionMessage.SIGNUP_EXIT.getMessage())) {
+							continue start;
+						}
 					}
 				}
 
@@ -79,8 +89,15 @@ public class WeirdQuizController {
 
 			if (loginMenuOption == LoginMenuOption.EXIT.getId()) {
 				// 종료
+				outputView.writeExitMessage();
 				break;
 			}
+		}
+		
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -96,7 +113,14 @@ public class WeirdQuizController {
 
 	User login() {
 		String userId = inputView.readUserId();
+		if(userId.equals(ExceptionMessage.LOGIN_EXIT.getCode())) {
+			throw new RuntimeException(ExceptionMessage.LOGIN_EXIT.getMessage());
+		}
+		
 		String password = inputView.readPassword();
+		if(password.equals(ExceptionMessage.LOGIN_EXIT.getCode())) {
+			throw new RuntimeException(ExceptionMessage.LOGIN_EXIT.getMessage());
+		}
 
 		return userService.login(userId, password);
 	}
@@ -104,10 +128,48 @@ public class WeirdQuizController {
 	User signup() {
 		// 회원가입
 		String userId = inputView.readUserId();
+		if(userId.equals(ExceptionMessage.SIGNUP_EXIT.getCode())) {
+			throw new RuntimeException(ExceptionMessage.SIGNUP_EXIT.getMessage());
+		}
+		
 		String password = inputView.readPassword();
+		if(password.equals(ExceptionMessage.SIGNUP_EXIT.getCode())) {
+			throw new RuntimeException(ExceptionMessage.SIGNUP_EXIT.getMessage());
+		}
+		
 		String userName = inputView.readUserName();
+		if(userName.equals(ExceptionMessage.SIGNUP_EXIT.getCode())) {
+			throw new RuntimeException(ExceptionMessage.SIGNUP_EXIT.getMessage());
+		}
 
 		return userService.signup(userId, password, userName);
+	}
+	
+	void executeGame() {
+
+		// 게임 메뉴 선택
+		int gameMenuOption = selectGameMenu();
+
+		// 게임 방법
+		if (gameMenuOption == GameMenuOption.GAME_GUIDE.getId()) {
+			guideGame();
+		}
+
+		// 게임 시작
+		if (gameMenuOption == GameMenuOption.GAME_PLAY.getId()) {
+			while (playGame())
+				;
+		}
+
+		// 기록 조회
+		if (gameMenuOption == GameMenuOption.GAME_STATS.getId()) {
+			getGameStats();
+		}
+
+		// 로그아웃
+		if (gameMenuOption == GameMenuOption.LOGOUT.getId()) {
+			logout();
+		}
 	}
 
 	int selectGameMenu() {
@@ -198,33 +260,6 @@ public class WeirdQuizController {
 	void logout() {
 		user = null;
 		outputView.writeLogoutMessage();
-	}
-
-	void executeGame() {
-
-		// 게임 메뉴 선택
-		int gameMenuOption = selectGameMenu();
-
-		// 게임 방법
-		if (gameMenuOption == GameMenuOption.GAME_GUIDE.getId()) {
-			guideGame();
-		}
-
-		// 게임 시작
-		if (gameMenuOption == GameMenuOption.GAME_PLAY.getId()) {
-			while (playGame())
-				;
-		}
-
-		// 기록 조회
-		if (gameMenuOption == GameMenuOption.GAME_STATS.getId()) {
-			getGameStats();
-		}
-
-		// 로그아웃
-		if (gameMenuOption == GameMenuOption.LOGOUT.getId()) {
-			logout();
-		}
 	}
 
 }
