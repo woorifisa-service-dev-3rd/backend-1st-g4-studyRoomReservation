@@ -88,3 +88,45 @@ java -jar WeirdQuiz.jar jdbc.properties
 <br>
 
 ## 💻 실행 예시
+### 회원가입 및 로그인
+<p>
+  <ul>
+    <li>회원가입 기능</li>
+    <li>이미 존재하는 아이디일 경우 다시 입력 요청하는 예외처리</li>
+  </ul>
+  <img src="https://github.com/user-attachments/assets/95ebeeec-df31-402f-8b48-19b953bdb620" alt="회원가입" width="600" height="400"/>
+</p>
+<p>
+  <ul>
+    <li>로그인 기능</li>
+    <li>아이디 및 비밀번호 입력 오류 시 다시 입력 요청하는 예외처리</li>
+  </ul>
+  <img src="https://github.com/user-attachments/assets/8b9c8382-480b-44c2-9647-e11ef229b44d" alt="로그인" width="600" height="400"/>
+</p>
+
+### 게임 방법 및 게임 시작
+<p>
+  <ul>
+    <li>게임 방법 확인</li>
+    <li>게임 시작 → 10문제를 모두 맞춰 게임에서 성공하거나 사용자가 그만하길 원할 때까지 계속 게임 진행</li>
+  </ul>
+  <img src="https://github.com/user-attachments/assets/5edf4b81-c6a4-475f-99ec-a81768c0dda4" alt="게임 방법 및 게임 시작" width="600" height="400"/>
+</p>
+
+### 기록 조회
+<p>
+  <ul>
+    <li>게임 시도 횟수에 따른 성공률 조회</li>
+    <li>문제 푼 횟수에 따른 정답률 조회</li>
+  </ul>
+  <img src="https://github.com/user-attachments/assets/a2865650-1587-437b-a08d-24124f50a13b" alt="기록 조회" width="600" height="400"/>
+</p>
+
+### 로그아웃 및 종료
+<p>
+  <ul>
+    <li>로그아웃하여 다른 아이디로 로그인 가능</li>
+    <li>프로그램 종료</li>
+  </ul>
+  <img src="https://github.com/user-attachments/assets/87bde563-0e87-4aa9-b2f0-cbff601cee9e" alt="로그아웃 및 종료" width="600" height="400"/>
+</p>
