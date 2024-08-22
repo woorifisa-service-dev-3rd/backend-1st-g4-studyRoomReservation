@@ -114,15 +114,11 @@ buildNumber.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse,maven,java
 
-<<<<<<< HEAD
-weird_quiz/src/main/resources/*.properties
-
 
 # IntelliJ IDEA specific files and folders
 .idea/
 *.iml
 out/
-=======
 # Created by https://www.toptal.com/developers/gitignore/api/intellij
 # Edit at https://www.toptal.com/developers/gitignore?templates=intellij
 
@@ -242,4 +238,4 @@ fabric.properties
 # End of https://www.toptal.com/developers/gitignore/api/intellij
 
 weird_quiz/src/main/resources/*.properties
->>>>>>> ea7be693ed5bf69dedccbea67b22804d0a79d498
+
