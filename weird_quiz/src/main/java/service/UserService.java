@@ -4,7 +4,6 @@ import java.sql.Connection;
 
 import constants.ExceptionMessage;
 import dao.UserDAO;
-import lombok.extern.slf4j.Slf4j;
 import model.User;
 
 public class UserService {

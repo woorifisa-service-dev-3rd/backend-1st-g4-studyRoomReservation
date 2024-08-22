@@ -5,6 +5,7 @@ import java.util.List;
 
 import constants.GameMenuOption;
 import constants.LoginMenuOption;
+import lombok.extern.slf4j.Slf4j;
 import model.Quiz;
 import model.User;
 import service.QuizService;
@@ -13,6 +14,7 @@ import util.DBUtil;
 import view.InputView;
 import view.OutputView;
 
+@Slf4j
 public class WeirdQuizController {
 	private final UserService userService;
 	private final QuizService quizService;
@@ -44,6 +46,7 @@ public class WeirdQuizController {
 					try {
 						user = login();
 					}catch(RuntimeException e) {
+						log.error(e.getMessage());
 						outputView.writeExceptionMessage(e.getMessage());
 					}
 				}
@@ -62,6 +65,7 @@ public class WeirdQuizController {
 					try {
 						user = signup();
 					} catch (RuntimeException e) {
+						log.error(e.getMessage());
 						outputView.writeExceptionMessage(e.getMessage());
 					}
 				}
