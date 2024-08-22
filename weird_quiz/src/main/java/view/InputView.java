@@ -19,17 +19,17 @@ public class InputView {
 	}
 
 	public String readUserId() {
-		System.out.println("아이디를 입력해주세요.");
+		System.out.println("아이디를 입력해주세요. (종료하고 싶으면 0 입력...)");
 		return sc.next();
 	}
 
 	public String readPassword() {
-		System.out.println("비밀번호를 입력해주세요.");
+		System.out.println("비밀번호를 입력해주세요. (종료하고 싶으면 0 입력...)");
 		return sc.next();
 	}
 
 	public String readUserName() {
-		System.out.println("이름을 입력해주세요.");
+		System.out.println("이름을 입력해주세요. (종료하고 싶으면 0 입력...)");
 		return sc.next();
 	}
 
