@@ -17,7 +17,7 @@ USE `weird_quiz` ;
 -- -----------------------------------------------------
 -- Table `weird_quiz`.`user`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `weird_quiz`.`user` (
+CREATE TABLE IF NOT EXISTS `weird_quiz`.`users` (
   `user_id` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
   `user_name` VARCHAR(20) NOT NULL,

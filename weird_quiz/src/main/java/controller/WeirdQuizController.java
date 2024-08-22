@@ -51,7 +51,7 @@ public class WeirdQuizController {
 					}
 				}
 
-				outputView.writeWelcomeLoginUser(user);
+				outputView.writeWelcomeLoginUser(user.getUserName());
 				
 				while (user != null) {
 					executeGame();
@@ -70,7 +70,7 @@ public class WeirdQuizController {
 					}
 				}
 
-				outputView.writeWelcomeSignupUser(user);
+				outputView.writeWelcomeSignupUser(user.getUserName());
 				
 				while (user != null) {
 					executeGame();
@@ -189,7 +189,10 @@ public class WeirdQuizController {
 	}
 
 	void getGameStats() {
-		outputView.writeGameStats(user);
+		double successRate = userService.calSuccessRate(user);
+        double correctAnswerRate = userService.calCorrectAnswerRate(user);
+        
+		outputView.writeGameStats(user.getUserName(), successRate, correctAnswerRate) ;
 	}
 
 	void logout() {
