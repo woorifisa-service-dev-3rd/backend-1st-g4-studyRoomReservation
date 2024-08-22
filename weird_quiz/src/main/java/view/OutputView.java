@@ -130,4 +130,13 @@ public class OutputView {
 		System.out.println(exceptionMessage);
 	}
 
+	public void writeWelcomeLoginUser(User user) {
+		System.out.printf(Message.LOGIN_MESSAGE, user.getUserName());
+		
+	}
+
+	public void writeWelcomeSignupUser(User user) {
+		System.out.printf(Message.SIGNUP_MESSAGE, user.getUserName());
+	}
+
 }

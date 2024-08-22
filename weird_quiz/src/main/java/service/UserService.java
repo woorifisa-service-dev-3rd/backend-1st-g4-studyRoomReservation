@@ -2,6 +2,7 @@ package service;
 
 import java.sql.Connection;
 
+import constants.ExceptionMessage;
 import dao.UserDAO;
 import lombok.extern.slf4j.Slf4j;
 import model.User;
@@ -22,16 +23,16 @@ public class UserService {
 			return user;
 		}
 		if (user != null) {
-			throw new RuntimeException("비밀번호가 틀렸습니다.");
+			throw new RuntimeException(ExceptionMessage.WRONG_PASSWORD.getMessage());
 		}
-		throw new RuntimeException("존재하지 않는 유저입니다.");
+		throw new RuntimeException(ExceptionMessage.NOT_FOUND_USER.getMessage());
 	}
 
 	public User signup(String userId, String password, String userName) {
 		// 중복된 유저 체크
 		User existingUser = userDAO.findById(userId);
 		if (existingUser != null) {
-			throw new RuntimeException("이미 존재하는 아이디입니다.");
+			throw new RuntimeException(ExceptionMessage.EXIST_USER_ID.getMessage());
 		}
 
 		// 새로운 유저 저장

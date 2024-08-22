@@ -48,6 +48,8 @@ public class WeirdQuizController {
 					}
 				}
 
+				outputView.writeWelcomeLoginUser(user);
+				
 				while (user != null) {
 					executeGame();
 				}
@@ -64,6 +66,8 @@ public class WeirdQuizController {
 					}
 				}
 
+				outputView.writeWelcomeSignupUser(user);
+				
 				while (user != null) {
 					executeGame();
 				}
