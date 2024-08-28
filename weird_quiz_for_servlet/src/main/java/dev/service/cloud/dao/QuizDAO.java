@@ -1,4 +1,4 @@
-package dao;
+package dev.service.cloud.dao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -7,16 +7,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Quiz;
+import dev.service.cloud.model.Quiz;
+import dev.service.cloud.util.DButil;
 
 
 public class QuizDAO {
-	
-	private final Connection connection;
-
-	public QuizDAO(Connection connection) {
-		this.connection = connection;
-	}
 	
 	public List<Quiz> findTop10OrderByRandom() {
 		
@@ -25,6 +20,7 @@ public class QuizDAO {
 		final String query = "SELECT * FROM quizzes ORDER BY RAND() LIMIT 10";
 		
 		try (
+			Connection connection = DButil.getConnection();
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(query);
 		) {
@@ -42,6 +38,8 @@ public class QuizDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
 		}
 		
 		return ret;
