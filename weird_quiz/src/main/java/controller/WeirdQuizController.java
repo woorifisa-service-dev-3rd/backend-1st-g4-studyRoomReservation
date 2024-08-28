@@ -48,7 +48,7 @@ public class WeirdQuizController {
 					try {
 						user = login();
 					}catch(RuntimeException e) {
-						log.error(e.getMessage());
+//						log.error(e.getMessage());
 						outputView.writeExceptionMessage(e.getMessage());
 						
 						if(e.getMessage().equals(ExceptionMessage.LOGIN_EXIT.getMessage())) {
@@ -71,7 +71,7 @@ public class WeirdQuizController {
 					try {
 						user = signup();
 					} catch (RuntimeException e) {
-						log.error(e.getMessage());
+//						log.error(e.getMessage());
 						outputView.writeExceptionMessage(e.getMessage());
 						
 						if(e.getMessage().equals(ExceptionMessage.SIGNUP_EXIT.getMessage())) {
