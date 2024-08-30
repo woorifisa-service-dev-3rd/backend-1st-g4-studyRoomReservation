@@ -35,7 +35,7 @@ public class LoginController extends HttpServlet {
 			User user = service.login(userId, password);
 			
 			session.setAttribute("user", user);
-			response.sendRedirect("/quiz");
+			response.sendRedirect(request.getContextPath() + "/quiz");
 			
 		}catch(RuntimeException e) {
 			e.printStackTrace();

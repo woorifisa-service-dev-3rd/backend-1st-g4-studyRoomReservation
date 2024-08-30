@@ -4,16 +4,13 @@ import java.util.List;
 
 import dev.service.cloud.model.Quiz;
 import dev.service.cloud.model.QuizOption;
-import dev.service.cloud.repository.QuizOptionRepository;
 import dev.service.cloud.repository.QuizRepository;
 
 public class QuizService {
 	private final QuizRepository quizRepository;
-	private final QuizOptionRepository quizOptionRepository;
 	
 	public QuizService() {
 		quizRepository = new QuizRepository();
-		quizOptionRepository = new QuizOptionRepository();
 	}
 
 
@@ -22,10 +19,6 @@ public class QuizService {
 		return quizRepository.findTop10OrderByRandom();
 	}
 	
-	public void setQuizOptions(Quiz quiz) {
-		
-		quiz.setOptions(quizOptionRepository.findByQuizIdOrderByOptionId(quiz.getId()));
-	}
 
 	public boolean isCorrectAnswer(Quiz quiz, int userAnswer) {
 		boolean ret;
