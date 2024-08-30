@@ -1,21 +1,19 @@
-package dev.service.cloud.service;
+package service;
 
-import java.sql.Connection;
-
-import dev.service.cloud.constants.ExceptionMessage;
-import dev.service.cloud.dao.UserDAO;
-import dev.service.cloud.model.User;
+import constants.ExceptionMessage;
+import model.User;
+import repository.UserRepository;
 
 public class UserService {
-	private final UserDAO userDAO;
+	private final UserRepository userRepository;
 
 	public UserService() {
-		userDAO = new UserDAO();
+		userRepository = new UserRepository();
 	}
 
 	public User login(String userId, String password) {
 
-		User user = userDAO.findById(userId);
+		User user = userRepository.findById(userId);
 		if (user != null && user.getPassword().equals(password)) {
 			return user;
 		}
@@ -27,7 +25,7 @@ public class UserService {
 
 	public User signup(String userId, String password, String userName) {
 		// 중복된 유저 체크
-		User existingUser = userDAO.findById(userId);
+		User existingUser = userRepository.findById(userId);
 		if (existingUser != null) {
 			throw new RuntimeException(ExceptionMessage.EXIST_USER_ID.getMessage());
 		}
@@ -35,7 +33,7 @@ public class UserService {
 		// 새로운 유저 저장
 		User newUser = new User(userId, password, userName, 0, 0, 0, 0);
 
-		return userDAO.save(newUser);
+		return userRepository.save(newUser);
 	}
 
 	public void gameStart(User user) {
@@ -55,7 +53,7 @@ public class UserService {
 	}
 
 	public void save(User user) { // 게임 정보 저장
-		userDAO.updateById(user);
+		userRepository.updateById(user);
 	}
 
 	public double calSuccessRate(User user) {

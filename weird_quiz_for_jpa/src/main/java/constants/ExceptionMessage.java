@@ -1,4 +1,4 @@
-package dev.service.cloud.constants;
+package constants;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

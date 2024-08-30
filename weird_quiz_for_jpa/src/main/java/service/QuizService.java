@@ -1,32 +1,30 @@
-package dev.service.cloud.service;
+package service;
 
-import java.sql.Connection;
 import java.util.List;
 
-import dev.service.cloud.dao.QuizDAO;
-import dev.service.cloud.dao.QuizOptionDAO;
-import dev.service.cloud.model.Quiz;
-import dev.service.cloud.model.QuizOption;
-
+import model.Quiz;
+import model.QuizOption;
+import repository.QuizOptionRepository;
+import repository.QuizRepository;
 
 public class QuizService {
-	private final QuizDAO quizDAO;
-	private final QuizOptionDAO quizOptionDAO;
+	private final QuizRepository quizRepository;
+	private final QuizOptionRepository quizOptionRepository;
 	
 	public QuizService() {
-		quizDAO = new QuizDAO();
-		quizOptionDAO = new QuizOptionDAO();
+		quizRepository = new QuizRepository();
+		quizOptionRepository = new QuizOptionRepository();
 	}
 
 
 	public List<Quiz> selectQuizzes() {
 		// 랜덤으로 퀴즈 10개 가져오기
-		return quizDAO.findTop10OrderByRandom();
+		return quizRepository.findTop10OrderByRandom();
 	}
 	
 	public void setQuizOptions(Quiz quiz) {
 		
-		quiz.setOptions(quizOptionDAO.findByQuizIdOrderByOptionId(quiz.getId()));
+		quiz.setOptions(quizOptionRepository.findByQuizIdOrderByOptionId(quiz.getId()));
 	}
 
 	public boolean isCorrectAnswer(Quiz quiz, int userAnswer) {

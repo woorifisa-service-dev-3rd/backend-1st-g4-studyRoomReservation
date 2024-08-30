@@ -1,4 +1,4 @@
-package dev.service.cloud.constants;
+package constants;
 
 public class Message {
   public static String GAME_GUIDE = "1번부터 10번까지 모든 문제를 풀면 끝나는 게임입니다.\n"

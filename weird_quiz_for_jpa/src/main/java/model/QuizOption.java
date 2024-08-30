@@ -1,4 +1,4 @@
-package dev.service.cloud.model;
+package model;
 
 import lombok.Builder;
 import lombok.Getter;
