@@ -53,7 +53,7 @@ public class UserService {
 	}
 
 	public void save(User user) { // 게임 정보 저장
-		userRepository.updateById(user);
+		userRepository.updateGameStatsById(user);
 	}
 
 	public double calSuccessRate(User user) {
