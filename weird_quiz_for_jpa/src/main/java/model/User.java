@@ -5,6 +5,8 @@ import lombok.*;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @ToString
 public class User {
     private String userId;

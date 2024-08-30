@@ -14,6 +14,7 @@ public class UserService {
 	public User login(String userId, String password) {
 
 		User user = userRepository.findById(userId);
+//		User user = User.builder().userId("hello").password("1234").userName("yeeun").build();
 		if (user != null && user.getPassword().equals(password)) {
 			return user;
 		}
