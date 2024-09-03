@@ -3,6 +3,7 @@
 
 Servers/
 jdbc.properties
+weird_quiz_for_jpa/src/main/resources/META-INF/persistence.xml
 
 ### Eclipse ###
 .metadata
